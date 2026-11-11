@@ -68,6 +68,46 @@ footer{text-align:center;color:var(--soft);font-size:11.5px;margin-top:26px;line
   background:radial-gradient(circle at 50% 42%,#2f7546,#1b5131 68%,#103a23 100%);
   border:7px solid #0d2f1d;box-shadow:0 8px 22px rgba(0,0,0,.28),inset 0 0 0 2px #d8bd66,inset 0 0 0 9px rgba(0,0,0,.13)}
 .plate.hide,.yaoline.hide{display:none}
+/* ===== v8：三次落位常驻 + 属性候选 ===== */
+.slot .marks{position:absolute;top:-8px;left:50%;transform:translateX(-50%);display:flex;gap:3px;z-index:4}
+.slot .marks b{font-size:10px;font-weight:700;line-height:1.35;padding:1px 5px;border-radius:4px;white-space:nowrap;box-shadow:0 1px 3px rgba(0,0,0,.32)}
+.slot .marks b.up{background:#ffe6a0;color:#5b3b06;border:1px solid #d8bd66}
+.slot .marks b.down{background:#ffb9a6;color:#6b180e;border:1px solid #c6402a}
+.coin.both{background:linear-gradient(135deg,#c6402a 0%,#e0694c 44%,#e6c574 56%,#f6dd92 100%);
+  border-color:#ffe6a0;box-shadow:0 0 0 2px #ffe6a0,0 0 11px 2px rgba(255,214,110,.7)}
+.coin.both:after{background:#7d2116;border-color:#ffe0b0}
+.slot.has-up{box-shadow:0 0 0 2px #ffe6a0,0 0 12px 3px rgba(255,214,110,.38)}
+.slot.has-down{box-shadow:0 0 0 2px #ff9e84,0 0 12px 3px rgba(226,72,42,.38)}
+.slot.has-both{box-shadow:0 0 0 2px #ffe6a0,0 0 0 4px #ff9e84,0 0 14px 4px rgba(255,214,110,.42)}
+.castlog{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:10px 0 2px}
+.castlog .step{flex:1 1 190px;max-width:230px;text-align:left;padding:7px 10px;border-radius:8px;
+  font-size:12px;line-height:1.65;background:#f4f0e4;border:1px dashed var(--line);color:var(--soft)}
+.castlog .step.done{background:#fff8e6;border:1px solid var(--gold);color:var(--ink)}
+.castlog .step b{display:block;font-size:12.5px;color:var(--moss);margin-bottom:2px}
+.castlog .step.done b{color:var(--red)}
+.castlog .step em{font-style:normal;color:var(--soft)}
+.poolbox{margin:14px 0 4px;padding:12px;border:1px solid var(--gold);border-radius:10px;background:#fffbef}
+.pool-h{font-size:14px;font-weight:600;color:#6b5220;margin-bottom:4px}
+.poolrow{display:flex;gap:10px;align-items:flex-start;padding:6px 0;border-top:1px dashed var(--line)}
+.poolrow.colorrow{background:#fff4e2;border-radius:6px;padding:8px 6px;margin:5px 0;border:1px solid #e8cd9a}
+.poolslot{flex:0 0 46px;font-size:13px;font-weight:600;color:var(--moss);padding-top:3px}
+.poolrow.colorrow .poolslot{color:var(--red)}
+.pooltags{display:flex;flex-wrap:wrap;gap:6px}
+.pooltag{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;padding:3px 8px;border-radius:14px;background:#fff;border:1px solid var(--line)}
+.pooltag small{font-size:10px;color:#fff;background:var(--moss);border-radius:8px;padding:0 5px}
+.pooltag.gua small{background:var(--gold)}
+.poolrow.colorrow .pooltag{border-color:#d9a06a}
+.pooldetail{margin-top:10px;font-size:13px}
+.pooldetail summary{color:var(--moss)}
+.pooltable{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px;display:block;overflow-x:auto}
+.pooltable td,.pooltable th{border:1px solid var(--line);padding:5px 7px;text-align:left;vertical-align:top}
+.pooltable th{background:#f1e6cd;white-space:nowrap}
+.pooltable .src{color:var(--soft)}
+.xtable{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:8px}
+.xtable td,.xtable th{border:1px solid var(--line);padding:5px 7px;text-align:left}
+.xtable th{background:#f1e6cd}
+.xtable .src{color:var(--soft)}
+
 .taiji{position:absolute;left:50%;top:50%;width:76px;height:76px;margin:-38px 0 0 -38px;opacity:.82;
   filter:drop-shadow(0 1px 3px rgba(0,0,0,.45))}
 .slot{position:absolute;width:76px;height:76px;margin:-38px 0 0 -38px;cursor:pointer;border-radius:50%;
@@ -133,15 +173,34 @@ footer{text-align:center;color:var(--soft);font-size:11.5px;margin-top:26px;line
       <div class="plate" id="plate"><svg class="taiji" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47" fill="#f2e4b8" stroke="#d8bd66" stroke-width="2"/><path d="M50 3a47 47 0 0 1 0 94 23.5 23.5 0 0 0 0-47 23.5 23.5 0 0 1 0-47z" fill="#173f28"/><circle cx="50" cy="26.5" r="7" fill="#f2e4b8"/><circle cx="50" cy="73.5" r="7" fill="#173f28"/></svg></div>
       <div class="yaoline hide" id="yaoline"></div>
       <div class="plate-status" id="plateStatus">尚未起课 · 请摇第一次（上卦）</div>
+      <div class="castlog" id="castLog"></div>
       <div class="plate-ctrl">
         <button class="mini" id="btnShake">摇 第 一 次（上卦）</button>
         <button class="mini" id="btnPlateReset">重 来</button>
       </div>
-      <div class="legend"><span class="coin"></span>常钱　<span class="coin red"></span>红钱（本次落位＝结果）　<span class="coin gold"></span>上一次落位</div>
-      <p class="muted" id="plateHint">自动摇用网页随机数模拟；点盘上任一卦位／爻位＝手动录入实物结果。第三次会切成六爻线。</p>
+      <div class="legend"><span class="coin gold"></span>上卦（金框）　<span class="coin red"></span>下卦（红钱）　<span class="coin both"></span>上下同卦位　盘上角标直接写「上卦／下卦」</div>
+      <p class="muted" id="plateHint">自动摇用网页随机数模拟；点盘上任一卦位＝手动录入实物结果，效果与摇钱相同。每次落位都会留在盘上并写进下方记录条。</p>
     </div>
     <div class="result" id="outCoin"></div>
     <div class="quote" id="coinQuote"></div>
+    <details class="xquick">
+      <summary>八卦代表什么 · 速查（颜色／材质／方位／季节）</summary>
+      <div class="body">
+        <p class="muted">把「盲盒 → ⑤ 类象词典」那 43 条按属性槽压成一张速查。<b>颜色一列多为五行配五色的通行引申</b>（本书未明文规定），离之赤另有第 280 签白话为据。下表答的是「这个符号属于什么」，<b>不是吉凶，也不是盒里是什么</b>。</p>
+        <table class="xtable">
+          <tr><th>卦</th><th>颜色（类象）</th><th>材质</th><th>方位</th><th>季节</th><th>主要出处</th></tr>
+          <tr><td><b>乾</b></td><td>白 / 金</td><td>金 / 玉</td><td>西北</td><td>—</td><td class="src">《说卦传》「為圜、為玉、為金」；第15签白话「西北」；金配白为通行引申</td></tr>
+          <tr><td><b>兑</b></td><td>白</td><td>金</td><td>西</td><td>秋</td><td class="src">第4签白话「秋…兑，西方，属金」；金配白为通行引申</td></tr>
+          <tr><td><b>离</b></td><td>赤 / 红</td><td>火 / 日 / 电</td><td>南</td><td>夏</td><td class="src">第280签「红色…以火为主体」；第86/251/362签「离为火」；第317签「南方／夏季与离卦相对应」</td></tr>
+          <tr><td><b>震</b></td><td>青</td><td>木 / 竹 / 苇</td><td>东</td><td>春</td><td class="src">第4签「春…震…属木」；第374签「五行属木、青龙」</td></tr>
+          <tr><td><b>巽</b></td><td>—</td><td>木 / 风</td><td>东南</td><td>春夏之交</td><td class="src">第19签白话「巽…东南、春夏之交」；第51签「巽所对应的天象就是风」</td></tr>
+          <tr><td><b>坎</b></td><td>黑</td><td>水 / 冰</td><td>北</td><td>—</td><td class="src">第287/349签白话「正北属水」；水配黑为通行引申</td></tr>
+          <tr><td><b>艮</b></td><td>—</td><td>石 / 小石</td><td>东北</td><td>—</td><td class="src">《说卦传》「艮為山，為徑路，為小石，為門闕」；八卦方位章「艮，東北之卦也」</td></tr>
+          <tr><td><b>坤</b></td><td>黄</td><td>土 / 布帛</td><td>西南</td><td>—</td><td class="src">第2签白话「坤…阴、地、土」；《说卦传》「為布、為釜」；土配黄为通行引申</td></tr>
+        </table>
+        <p class="muted"><b>同宫不同签，颜色判向会反过来</b>：离宫里第 89 签红为吉、第 280 签红为胜方、第 317 签红为忌。所以「离代表红」是<b>类象</b>，「该不该穿红」是<b>旺衰扶抑下的宜忌</b>，两层不混。逐条出处与「同色异判」全库核对见「盲盒 → ⑤」。</p>
+      </div>
+    </details>
   </div>
 
   <div class="card"><h2>乙 · 三字笔画起课</h2>
@@ -506,7 +565,53 @@ function signHTML(n){var s=SIGNS[n-1];if(!s)return "";
   if(w.jie1)h+='<div class="explain wenyan"><div class="explain-h">解籤一 · 简断 <span class="tag">L4 转录本</span></div><div class="readtext">'+esc(w.jie1)+'</div></div>';
   h+='<div class="explain"><div class="explain-h">白话全解 <span class="tag">L4 现代整理本</span></div><div class="readtext">'+esc(e.read||"（本签未取到白话解）")+'</div></div>';
   h+='<div class="muted">签诗、文言断语、白话解分别来自三个转录／整理本，按签号并列，各自标源，未改写、未编造。</div>';
+  h+=poolHTML(n);
   return h;}
+
+/* ===== v8：本签属性候选（复用已订正的 BOXDATA.pool，不含宜忌污染） =====
+   颜色一行另按静态类象词典补出配卦色：v6 清宜忌污染时把离宫「赤」一并剔了，
+   导致正文「离＝火／日／南／夏／赤」与数据层不一致。这里只补展示，
+   不写回 BOXDATA —— 盲盒检验的锁定候选池沿用原口径，已登记试验仍可比。 */
+var GUA_COLOR={
+  "乾":["白 / 金","五行金配白（通行，非本书明文）"],
+  "兑":["白","五行金配白（通行，非本书明文）"],
+  "离":["赤 / 红（火色）","第280签「以红色的一方将战胜黄色的一方，这就是一种以火为主体的成败」；五行火配赤为通行引申，非本书明文"],
+  "震":["青","五行木配青（书内第374签「保护神为青龙」）"],
+  "巽":["","类象词典未列固定颜色"],
+  "坎":["黑","五行水配黑（通行，非本书明文）"],
+  "艮":["","类象词典未列固定颜色"],
+  "坤":["黄","五行土配黄（通行，非本书明文）"]
+};
+function poolHTML(n){
+  if(typeof BOXDATA==="undefined"||!BOXDATA[String(n)]||!BOXDATA[String(n)].pool)return "";
+  var b=BOXDATA[String(n)],pool=b.pool.slice(),by={},order=["颜色","形状","材质","器物","方位","季节","人物","数量","动静","动物"];
+  var gong=b.gong||"",gc=GUA_COLOR[gong]||["",""];
+  var hasGuaColor=pool.some(function(p){return p.slot==="颜色"&&p.kind==="gua"});
+  if(gc[0]&&!hasGuaColor)pool.push({slot:"颜色",label:gc[0],src:"卦象 "+gong+"｜"+gc[1],kind:"gua"});
+  pool.forEach(function(p){(by[p.slot]=by[p.slot]||[]).push(p)});
+  if(!by["颜色"])by["颜色"]=[];
+  var keys=order.filter(function(k){return k==="颜色"||by[k]});
+  Object.keys(by).forEach(function(k){if(keys.indexOf(k)<0)keys.push(k)});
+  var h='<div class="poolbox"><div class="pool-h">这一签可能「代表」什么 · 属性候选 <span class="tag">类象层</span></div>';
+  h+='<p class="muted">签里没有物件名，只有一组<b>属性槽</b>。颜色、形状、材质这些是<b>候选</b>，不是答案。标「签面」的来自本签签诗字面，标「卦象」的来自配卦＋类象词典（外部工具，非本书明文规定）；鼠标悬停可看出处摘要。</p>';
+  keys.forEach(function(k){
+    h+='<div class="poolrow'+(k==="颜色"?" colorrow":"")+'"><span class="poolslot">'+esc(k)+'</span><span class="pooltags">';
+    if(k==="颜色"&&by[k].length===0)h+='<span class="muted">本宫类象词典未列固定颜色；颜色吉凶由签意临场定，不查表。</span>';
+    by[k].forEach(function(p){
+      h+='<span class="pooltag '+(p.kind==="literal"?"lit":"gua")+'" title="'+esc(p.src||"")+'">'+esc(p.label)+'<small>'+(p.kind==="literal"?"签面":"卦象")+'</small></span>';
+    });
+    h+='</span></div>';
+  });
+  h+='<p class="muted" style="margin:6px 0 0">口径：颜色行按八卦类象速查补出，只作描述候选；<b>不写进盲盒检验的锁定候选池</b>，此前登记的试验口径不变。宜忌（如「不穿红黄」）一律不进候选。</p>';
+  h+='<details class="pooldetail"><summary>逐条出处（'+pool.length+' 条，展开）</summary><div class="body"><table class="pooltable"><tr><th>属性槽</th><th>候选</th><th>来源</th><th>出处</th></tr>';
+  pool.forEach(function(p){
+    h+='<tr><td>'+esc(p.slot)+'</td><td>'+esc(p.label)+'</td><td>'+(p.kind==="literal"?"签面字面":"配卦类象")+'</td><td class="src">'+esc(p.src||"")+'</td></tr>';
+  });
+  h+='</table></div></details>';
+  h+='<div class="warn"><b>别把宜忌当描述。</b>第 317 签「不穿红、黄／忌黄金饰物／不宜坐火车」是旺衰扶抑下的<b>行为宜忌</b>，不进属性候选池；类象层「离＝火＝赤」与它并不矛盾。<b>颜色吉凶也不由卦固定推出</b>：同在离宫，第 89 签红为吉、第 280 签红为胜方、第 317 签红为忌。开盒核对的是属性，不是物件名。</div>';
+  return h+'</div>';
+}
+
 function setOut(id,h){var e=document.getElementById(id);e.innerHTML=h;e.classList.add("show");}
 function randInt(n){var a=new Uint32Array(1),lim=Math.floor(4294967296/n)*n;
   if(window.crypto&&window.crypto.getRandomValues){do{window.crypto.getRandomValues(a)}while(a[0]>=lim);return a[0]%n+1}
@@ -531,38 +636,60 @@ POS.forEach(function(o){var rad=o.a*Math.PI/180,R=116;
 for(var y=1;y<=6;y++){(function(k){var r=document.createElement("div");r.className="yaorow";r.dataset.n=k;
   r.innerHTML='<span class="coin"></span><span class="ylab">第 '+k+' 爻</span>';
   r.onclick=function(){if(busy)return;apply(k,false)};yaoline.appendChild(r);})(y);}
-function paint(v){
-  plate.querySelectorAll(".slot").forEach(function(d){d.classList.remove("active");d.querySelector(".coin").className="coin";});
-  yaoline.querySelectorAll(".yaorow").forEach(function(r){r.classList.remove("active");r.querySelector(".coin").className="coin";});
-  var last=vals[vals.length-1];
-  if(stage>=2||(!last&&vals.length===0))return;
-  // 第一、二次：盘上标本次红钱；若已有上一次结果，用金框保留
-  if(vals.length>=2){var prev=plate.querySelector('.slot[data-n="'+vals[0]+'"]');
-    if(prev){var pc=prev.querySelector(".coin");if(pc)pc.className="coin gold";}}
-  if(!(v>=1))return;
-  var cur=plate.querySelector('.slot[data-n="'+v+'"]');
-  if(cur){cur.classList.add("active");var cc=cur.querySelector(".coin");if(cc)cc.className="coin red";}}
-function paintAll(){
-  plate.querySelectorAll(".slot").forEach(function(d){d.classList.remove("active");d.querySelector(".coin").className="coin";});
-  yaoline.querySelectorAll(".yaorow").forEach(function(r){r.classList.remove("active");r.querySelector(".coin").className="coin";});
-  var a=plate.querySelector('.slot[data-n="'+vals[0]+'"]'),b=plate.querySelector('.slot[data-n="'+vals[1]+'"]'),
-      c=yaoline.querySelector('.yaorow[data-n="'+vals[2]+'"]');
-  if(a){a.classList.add("active");a.querySelector(".coin").className="coin gold";}
-  if(b){b.classList.add("active");b.querySelector(".coin").className="coin red";}
-  if(c){c.classList.add("active");c.querySelector(".coin").className="coin red";}}
+function markSlot(d,cls,txt){
+  var m=d.querySelector(".marks");
+  if(!m){m=document.createElement("div");m.className="marks";d.appendChild(m);}
+  var b=document.createElement("b");b.className=cls;b.textContent=txt;m.appendChild(b);
+}
+/* 全量重画：始终以 vals 为准，任何一摇都不会抹掉前几次的落位 */
+function repaint(){
+  plate.querySelectorAll(".slot").forEach(function(d){
+    d.classList.remove("active","has-up","has-down","has-both");
+    d.querySelector(".coin").className="coin";
+    var m=d.querySelector(".marks");if(m)m.remove();
+  });
+  yaoline.querySelectorAll(".yaorow").forEach(function(r){
+    r.classList.remove("active");r.querySelector(".coin").className="coin";
+  });
+  var a=vals.length>=1?plate.querySelector('.slot[data-n="'+vals[0]+'"]'):null,
+      b=vals.length>=2?plate.querySelector('.slot[data-n="'+vals[1]+'"]'):null;
+  if(a){a.classList.add("active");markSlot(a,"up","上卦");}
+  if(b){b.classList.add("active");markSlot(b,"down","下卦");}
+  if(a&&b&&a===b){a.classList.add("has-both");a.querySelector(".coin").className="coin both";} /* 上下同卦位：双环＋双角标 */
+  else{if(a){a.classList.add("has-up");a.querySelector(".coin").className="coin gold";}
+       if(b){b.classList.add("has-down");b.querySelector(".coin").className="coin red";}}
+  if(vals.length>=3){
+    var c=yaoline.querySelector('.yaorow[data-n="'+vals[2]+'"]');
+    if(c){c.classList.add("active");c.querySelector(".coin").className="coin red";}
+  }
+}
 function stageLabel(){return ["","上卦","下卦","动爻"][stage+1]||"";}
-function updateStatus(){var lab=["","第一次（上卦）","第二次（下卦）","第三次（动爻）"];
+function renderLog(){
+  var names=["① 第一次 · 上卦","② 第二次 · 下卦","③ 第三次 · 动爻"],h="";
+  for(var i=0;i<3;i++){
+    if(i<vals.length){
+      var v=vals[i],txt;
+      if(i<2)txt="红钱落 "+v+" 位 → <b>"+GUA[v-1]+"</b>　<em>"+XIANG[GUA[v-1]]+"</em>";
+      else txt="红钱在第 "+v+" 位 → <b>第 "+v+" 爻动</b>";
+      h+='<div class="step done"><b>'+names[i]+'</b>'+txt+'</div>';
+    }else h+='<div class="step"><b>'+names[i]+'</b><em>待摇</em></div>';
+  }
+  document.getElementById("castLog").innerHTML=h;
+}
+function updateStatus(){
   if(stage===0)pStatus.textContent="尚未起课 · 请摇第一次（上卦）";
   else if(stage===1)pStatus.textContent="上卦："+vals[0]+" "+GUA[vals[0]-1]+" ｜ 请摇第二次（下卦）";
   else if(stage===2)pStatus.textContent="上卦 "+GUA[vals[0]-1]+" · 下卦 "+GUA[vals[1]-1]+" ｜ 去二留六，请摇第三次（动爻）";
   else pStatus.textContent="成卦："+GUA[vals[0]-1]+GUA[vals[1]-1]+" · 第 "+vals[2]+" 爻动";
   btnShake.textContent=stage>=3?"重 新 起 课":"摇 第 "+["一","二","三"][stage]+" 次（"+["上卦","下卦","动爻"][stage]+"）";
-  plate.classList.toggle("hide",stage===2);
-  yaoline.classList.toggle("hide",stage<2);
+  plate.classList.remove("hide");                 /* 八卦盘三次全程保留 */
+  yaoline.classList.toggle("hide",stage<2);      /* 第三次才并列出现六爻线 */
   document.getElementById("plateHint").textContent=stage===2
-    ? "第三次：八钱去二留六，自下而上排成一线，红钱在第几位即第几爻动。点任一爻位可手动录入。"
-    : (stage>=3?"成卦结果留在盘上：金框＝上卦、红钱＝下卦，下方六爻线红钱＝动爻。"
-               :"自动摇用网页随机数模拟；点盘上任一卦位＝手动录入实物结果，效果与摇钱相同。");}
+    ? "第三次：八钱去二留六，自下而上排成一线，红钱在第几位即第几爻动。前两次的盘面落位保留在上方，点任一爻位可手动录入。"
+    : (stage>=3?"三次结果同屏：盘上「上卦／下卦」角标＋金框／红钱，下方六爻线红钱＝动爻。点「重来」清空。"
+               :"自动摇用网页随机数模拟；点盘上任一卦位＝手动录入实物结果，效果与摇钱相同。每次落位都会留在盘上并写进下方记录条。");
+  renderLog();
+}
 function apply(v,animate){
   if(stage>=3){resetPlate();return}
   if(animate){busy=true;
@@ -570,13 +697,13 @@ function apply(v,animate){
     box.classList.remove("shaking");void box.offsetWidth;box.classList.add("shaking");
     setTimeout(function(){finish(v);busy=false;box.classList.remove("shaking");},620);}
   else finish(v);}
-function finish(v){vals.push(v);paint(v);stage++;
+function finish(v){vals.push(v);stage++;repaint();
   if(stage<3){updateStatus();return}
   var up=vals[0]-1,down=vals[1]-1,yao=vals[2],ref=up*48+down*6+yao,code=(up+1)*100+(down+1)*10+yao;
-  document.getElementById("qSign").value=ref;updateStatus();paintAll();
+  document.getElementById("qSign").value=ref;updateStatus();
   setOut("outCoin",'<div class="calc">紅錢落位：'+vals.join(" / ")+'\n上卦 '+(up+1)+' '+GUA[up]+'（'+XIANG[GUA[up]]+'）\n下卦 '+(down+1)+' '+GUA[down]+'（'+XIANG[GUA[down]]+'）\n動爻 第 '+yao+' 爻\n刻本三位编号 = '+(up+1)+'×100 + '+(down+1)+'×10 + '+yao+' = '+code+'\n顺排参考签号 = '+up+'×48 + '+down+'×6 + '+yao+' = '+ref+'</div>'+
     '<div class="warn">原书按 <b>'+code+'</b> 翻目次查该爻签诗与断语；<b>'+ref+'</b> 只是为对齐 1–384 签库做的顺排换算，<b>未经刻本目次逐条核对</b>，与三字笔画法不保证同签。下面显示的签与解取自该顺排号，不冒充实刻查得。</div>'+signHTML(ref));}
-function resetPlate(){stage=0;vals=[];busy=false;paint(-1);
+function resetPlate(){stage=0;vals=[];busy=false;repaint();
   document.getElementById("outCoin").classList.remove("show");updateStatus();}
 btnShake.onclick=function(){if(busy)return;
   if(stage>=3){resetPlate();return}
